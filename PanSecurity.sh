@@ -7,6 +7,10 @@ echo "CyberPatriot Ubuntu Script"
 echo "Updated by Cole Hawkins for the CyPat 23/24 Competition"
 echo "Many thanks to the above author"
 
+echo "quick lil update first"
+
+sudo apt-get update
+
 ####################################LOG FILE####################################
 
 touch ~/Desktop/Script.log
