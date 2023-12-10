@@ -22,15 +22,15 @@ chmod 777 ~/Desktop/Script.log
 touch ~/Desktop/Password.txt
 echo -e "The script contains a secure password that will be used for all accounts. Would you like to make a custom password instead? yes or no"
 read pwyn
-if [ $pwyn == yes ]
+if [ $pwyn == y ]
 then
 	echo "Password:"
 	read pw
 	echo "$pw" > ~/Desktop/Password.txt
 	echo "Password has been set as '$pw'."
 else
-	echo "T3Am_KrAk3N!" > ~/Desktop/Password.txt
-	echo "Password has been set as 'T3Am_KrAk3N!'."
+	echo "Kraken1!" > ~/Desktop/Password.txt
+	echo "Password has been set as 'Kraken1!'."
 fi
 chmod 777 ~/Desktop/Password.txt
 echo "Password file is on desktop. Copy password from the file."
@@ -69,14 +69,14 @@ do
 	echo ${users[${i}]}
 	echo "Delete ${users[${i}]}? yes or no"
 	read yn1
-	if [ $yn1 == yes ]
+	if [ $yn1 == y ]
 	then
 		userdel -r ${users[${i}]}
 		echo "${users[${i}]} has been deleted."
 	else
 		echo "Make ${users[${i}]} administrator? yes or no"
 		read yn2
-		if [ $yn2 == yes ]
+		if [ $yn2 == y ]
 		then
 			gpasswd -a ${users[${i}]} sudo
 			gpasswd -a ${users[${i}]} adm
@@ -92,7 +92,7 @@ do
 			echo "${users[${i}]} has been made a standard user."
 		fi
 
-		if [ $pwyn == yes ]
+		if [ $pwyn == y ]
 		then
 			echo -e "$pw\n$pw" | passwd ${users[${i}]}
 			echo "${users[${i}]} has been given the password '$pw'."
@@ -116,7 +116,7 @@ for (( i=0;i<$usersNewLength;i++))
 do
 	clear
 	echo ${usersNew[${i}]}
-	if [ $pwyn == yes ]
+	if [ $pwyn == y ]
 	then
 		echo -e "$pw\n$pw" | adduser ${usersNew[${i}]}
 		echo "${usersNew[${i}]} has been given the password '$pw'."
@@ -128,7 +128,7 @@ do
 	clear
 	echo "Make ${usersNew[${i}]} administrator? yes or no"
 	read ynNew
-	if [ $ynNew == yes ]
+	if [ $ynNew == y ]
 	then
 		gpasswd -a ${usersNew[${i}]} sudo
 		gpasswd -a ${usersNew[${i}]} adm
@@ -261,12 +261,10 @@ echo "resolv.conf has been configured."
 clear
 cp /etc/init/control-alt-delete.conf ~/Desktop/backups/
 sed '/^exec/ c\exec false' /etc/init/control-alt-delete.conf
-systemctl mask ctrl-alt-del.target #ubuntu 16 only?
-systemctl daemon-reload #ubuntu 16 only?
-echo "Reboot using Ctrl-Alt-Delete has been disabled."
 
 ####################################SERVICES####################################
 
+echo "Answer (y/n)"
 echo "Does this machine need Samba?"
 read sambaYN
 echo "Does this machine need FTP?"
@@ -290,9 +288,9 @@ read mediaFilesYN
 echo "Does this machine need remote desktop capabilities?"
 read rdpYN
 
-echo "Disable IPv6?"
+echo "Disable IPv6? (y/n)"
 read ipv6YN
-if [ $ipv6YN == yes ]
+if [ $ipv6YN == y ]
 then
 	echo -e "\n\n# Disable IPv6\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1" >> /etc/sysctl.conf
 	sysctl -p >> /dev/null
@@ -300,7 +298,7 @@ then
 fi
 
 clear
-if [ $sambaYN == no ]
+if [ $sambaYN == n ]
 then
 	ufw deny netbios-ns
 	ufw deny netbios-dgm
@@ -312,7 +310,7 @@ then
 	apt-get purge samba4 -y -qq
 	clear
 	echo "netbios-ns, netbios-dgm, netbios-ssn, and microsoft-ds ports have been denied. Samba has been removed."
-elif [ $sambaYN == yes ]
+elif [ $sambaYN == y ]
 then
 	ufw allow netbios-ns
 	ufw allow netbios-dgm
@@ -343,7 +341,7 @@ fi
 echo "Samba is complete."
 
 clear
-if [ $ftpYN == no ]
+if [ $ftpYN == n ]
 then
 	ufw deny ftp
 	ufw deny sftp
@@ -352,7 +350,7 @@ then
 	ufw deny ftps
 	apt-get purge vsftpd -y -qq
 	echo "vsFTPd has been removed. ftp, sftp, saft, ftps-data, and ftps ports have been denied on the firewall."
-elif [ $ftpYN == yes ]
+elif [ $ftpYN == y ]
 then
 	ufw allow ftp
 	ufw allow sftp
@@ -371,12 +369,12 @@ echo "FTP is complete."
 
 
 clear
-if [ $sshYN == no ]
+if [ $sshYN == n ]
 then
 	ufw deny ssh
 	apt-get purge openssh-server -y -qq
 	echo "SSH port has been denied on the firewall. Open-SSH has been removed."
-elif [ $sshYN == yes ]
+elif [ $sshYN == y ]
 then
 	apt-get install openssh-server -y -qq
 	apt-get install libpam-google-authenticator -y -qq
@@ -396,7 +394,7 @@ fi
 echo "SSH is complete."
 
 clear
-if [ $telnetYN == no ]
+if [ $telnetYN == n ]
 then
 	ufw deny telnet
 	ufw deny rtelnet
@@ -406,7 +404,7 @@ then
 	apt-get purge inetutils-telnetd -y -qq
 	apt-get purge telnetd-ssl -y -qq
 	echo "Telnet port has been denied on the firewall and Telnet has been removed."
-elif [ $telnetYN == yes ]
+elif [ $telnetYN == y ]
 then
 	ufw allow telnet
 	ufw allow rtelnet
@@ -420,7 +418,7 @@ echo "Telnet is complete."
 
 
 clear
-if [ $mailYN == no ]
+if [ $mailYN == n ]
 then
 	ufw deny smtp
 	ufw deny pop2
@@ -429,7 +427,7 @@ then
 	ufw deny imaps
 	ufw deny pop3s
 	echo "smtp, pop2, pop3, imap2, imaps, and pop3s ports have been denied on the firewall."
-elif [ $mailYN == yes ]
+elif [ $mailYN == y ]
 then
 	ufw allow smtp
 	ufw allow pop2
@@ -446,13 +444,13 @@ echo "Mail is complete."
 
 
 clear
-if [ $printYN == no ]
+if [ $printYN == n ]
 then
 	ufw deny ipp
 	ufw deny printer
 	ufw deny cups
 	echo "ipp, printer, and cups ports have been denied on the firewall."
-elif [ $printYN == yes ]
+elif [ $printYN == y ]
 then
 	ufw allow ipp
 	ufw allow printer
@@ -466,7 +464,7 @@ echo "Printing is complete."
 
 
 clear
-if [ $dbYN == no ]
+if [ $dbYN == n ]
 then
 	ufw deny ms-sql-s
 	ufw deny ms-sql-m
@@ -484,7 +482,7 @@ then
 	apt-get purge mysql-client-5.6 -y -qq
 	apt-get purge mysql-server-core-5.6 -y -qq
 	echo "ms-sql-s, ms-sql-m, mysql, and mysql-proxy ports have been denied on the firewall. MySQL has been removed."
-elif [ $dbYN == yes ]
+elif [ $dbYN == y ]
 then
 	ufw allow ms-sql-s
 	ufw allow ms-sql-m
@@ -510,14 +508,14 @@ echo "MySQL is complete."
 
 
 clear
-if [ $httpYN == no ]
+if [ $httpYN == n ]
 then
 	ufw deny http
 	ufw deny https
 	apt-get purge apache2 -y -qq
 	rm -r /var/www/*
 	echo "http and https ports have been denied on the firewall. Apache2 has been removed. Web server files have been removed."
-elif [ $httpYN == yes ]
+elif [ $httpYN == y ]
 then
 	apt-get install apache2 -y -qq
 	ufw allow http
@@ -538,12 +536,12 @@ echo "Web Server is complete."
 
 
 clear
-if [ $dnsYN == no ]
+if [ $dnsYN == n ]
 then
 	ufw deny domain
 	apt-get purge bind9 -qq
 	echo "domain port has been denied on the firewall. DNS name binding has been removed."
-elif [ $dnsYN == yes ]
+elif [ $dnsYN == y ]
 then
 	ufw allow domain
 	echo "domain port has been allowed on the firewall."
@@ -555,7 +553,7 @@ echo "DNS is complete."
 ####################################PROHIBITED FILE SEARCH####################################
 
 clear
-if [ $mediaFilesYN == no ]
+if [ $mediaFilesYN == n ]
 then
 	find / -name "*.midi" -type f >> ~/Desktop/Script.log
 	find / -name "*.mid" -type f >> ~/Desktop/Script.log
@@ -883,24 +881,40 @@ apt-get purge nikto -y -qq
 echo "Nikto has been removed."
 
 clear
-apt-get purge _ -y -qq #WorldForge
+apt-get purge worldforge -y -qq #WorldForge
 echo "WorldForge has been removed."
 
 clear
-apt-get purge _ -y -qq #Minetest
+apt-get purge minetest -y -qq #Minetest
 echo "Minetest has been removed."
 
 clear
-apt-get purge _ -y -qq #Freeciv
+apt-get purge freeciv -y -qq #Freeciv
 echo "Freeciv has been removed."
 
 clear
-apt-get purge _ -y -qq #Aisleriot
+apt-get purge aisleriot -y -qq #Aisleriot
 echo "Aisleriot has been removed."
 
 clear
-apt-get purge _ -y -qq #Wesnoth
+apt-get purge wesnoth -y -qq #Wesnoth
 echo "Wesnoth has been removed."
+
+clear
+apt-get purge metasploit -y -qq 
+echo "Metasploit has been removed."
+
+clear
+apt-get purge armitrage -y -qq 
+echo "Armitrage has been removed."
+
+clear
+apt-get purge burpsuite -y -qq 
+echo "Burpsuite has been removed."
+
+clear
+apt-get purge metasploit -y -qq 
+echo "Metasploit has been removed."
 
 ####################################INSTALLATIONS####################################
 
