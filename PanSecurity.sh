@@ -61,6 +61,9 @@ echo "/etc/group and /etc/passwd files backed up."
 echo "Type all user account names, with a space in between."
 read -a users
 
+usersAuto=eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1
+echo usersAuto
+
 usersLength=${#users[@]}
 
 for (( i=0;i<$usersLength;i++))
