@@ -100,8 +100,8 @@ do
 			echo -e "$pw\n$pw" | passwd ${users[${i}]}
 			echo "${users[${i}]} has been given the password '$pw'."
 		else
-			echo -e "H=Fmcqz3M]}&rfC$F>b)\nH=Fmcqz3M]}&rfC$F>b)" | passwd ${users[${i}]}
-			echo "${users[${i}]} has been given the password 'H=Fmcqz3M]}&rfC$F>b)'."
+			echo -e "Kraken1!" | passwd ${users[${i}]}
+			echo "${users[${i}]} has been given the password 'Kraken1!'."
 		fi
 		passwd -x30 -n3 -w7 ${users[${i}]}
 		#usermod -L ${users[${i}]} #is this needed? and does it unlock? what about the current user?
