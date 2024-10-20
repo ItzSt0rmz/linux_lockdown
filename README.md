@@ -1,1 +1,1 @@
-To run: sudo sh <filename>.sh
+To run: sudo sh [filename].sh
