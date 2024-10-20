@@ -569,73 +569,6 @@ find /bin/ -name "*.sh" -type f -delete
 echo "Scripts in bin have been removed."
 
 clear
-find / -type f -perm 777 >> $HOME/Desktop/Script.log
-find / -type f -perm 776 >> $HOME/Desktop/Script.log
-find / -type f -perm 775 >> $HOME/Desktop/Script.log
-find / -type f -perm 774 >> $HOME/Desktop/Script.log
-find / -type f -perm 773 >> $HOME/Desktop/Script.log
-find / -type f -perm 772 >> $HOME/Desktop/Script.log
-find / -type f -perm 771 >> $HOME/Desktop/Script.log
-find / -type f -perm 770 >> $HOME/Desktop/Script.log
-find / -type f -perm 767 >> $HOME/Desktop/Script.log
-find / -type f -perm 766 >> $HOME/Desktop/Script.log
-find / -type f -perm 765 >> $HOME/Desktop/Script.log
-find / -type f -perm 764 >> $HOME/Desktop/Script.log
-find / -type f -perm 763 >> $HOME/Desktop/Script.log
-find / -type f -perm 762 >> $HOME/Desktop/Script.log
-find / -type f -perm 761 >> $HOME/Desktop/Script.log
-find / -type f -perm 760 >> $HOME/Desktop/Script.log
-find / -type f -perm 757 >> $HOME/Desktop/Script.log
-find / -type f -perm 756 >> $HOME/Desktop/Script.log
-find / -type f -perm 755 >> $HOME/Desktop/Script.log
-find / -type f -perm 754 >> $HOME/Desktop/Script.log
-find / -type f -perm 753 >> $HOME/Desktop/Script.log
-find / -type f -perm 752 >> $HOME/Desktop/Script.log
-find / -type f -perm 751 >> $HOME/Desktop/Script.log
-find / -type f -perm 750 >> $HOME/Desktop/Script.log
-find / -type f -perm 747 >> $HOME/Desktop/Script.log
-find / -type f -perm 746 >> $HOME/Desktop/Script.log
-find / -type f -perm 745 >> $HOME/Desktop/Script.log
-find / -type f -perm 744 >> $HOME/Desktop/Script.log
-find / -type f -perm 743 >> $HOME/Desktop/Script.log
-find / -type f -perm 742 >> $HOME/Desktop/Script.log
-find / -type f -perm 741 >> $HOME/Desktop/Script.log
-find / -type f -perm 740 >> $HOME/Desktop/Script.log
-find / -type f -perm 737 >> $HOME/Desktop/Script.log
-find / -type f -perm 736 >> $HOME/Desktop/Script.log
-find / -type f -perm 735 >> $HOME/Desktop/Script.log
-find / -type f -perm 734 >> $HOME/Desktop/Script.log
-find / -type f -perm 733 >> $HOME/Desktop/Script.log
-find / -type f -perm 732 >> $HOME/Desktop/Script.log
-find / -type f -perm 731 >> $HOME/Desktop/Script.log
-find / -type f -perm 730 >> $HOME/Desktop/Script.log
-find / -type f -perm 727 >> $HOME/Desktop/Script.log
-find / -type f -perm 726 >> $HOME/Desktop/Script.log
-find / -type f -perm 725 >> $HOME/Desktop/Script.log
-find / -type f -perm 724 >> $HOME/Desktop/Script.log
-find / -type f -perm 723 >> $HOME/Desktop/Script.log
-find / -type f -perm 722 >> $HOME/Desktop/Script.log
-find / -type f -perm 721 >> $HOME/Desktop/Script.log
-find / -type f -perm 720 >> $HOME/Desktop/Script.log
-find / -type f -perm 717 >> $HOME/Desktop/Script.log
-find / -type f -perm 716 >> $HOME/Desktop/Script.log
-find / -type f -perm 715 >> $HOME/Desktop/Script.log
-find / -type f -perm 714 >> $HOME/Desktop/Script.log
-find / -type f -perm 713 >> $HOME/Desktop/Script.log
-find / -type f -perm 712 >> $HOME/Desktop/Script.log
-find / -type f -perm 711 >> $HOME/Desktop/Script.log
-find / -type f -perm 710 >> $HOME/Desktop/Script.log
-find / -type f -perm 707 >> $HOME/Desktop/Script.log
-find / -type f -perm 706 >> $HOME/Desktop/Script.log
-find / -type f -perm 705 >> $HOME/Desktop/Script.log
-find / -type f -perm 704 >> $HOME/Desktop/Script.log
-find / -type f -perm 703 >> $HOME/Desktop/Script.log
-find / -type f -perm 702 >> $HOME/Desktop/Script.log
-find / -type f -perm 701 >> $HOME/Desktop/Script.log
-find / -type f -perm 700 >> $HOME/Desktop/Script.log
-echo "All files with file permissions between 700 and 777 have been listed above."
-
-clear
 find / -name "*.php" -type f >> $HOME/Desktop/Script.log
 echo "All PHP files have been listed above. ('/var/cache/dictionaries-common/sqspell.php' is a system PHP file)"
 
@@ -839,12 +772,6 @@ clear
 apt-get install libpam-cracklib -y -qq
 cp /etc/pam.d/common-auth $HOME/Desktop/backups/
 cp /etc/pam.d/common-password $HOME/Desktop/backups/
-#SET THIS TO WHAT WE HAVE
-echo -e "#\n# /etc/pam.d/common-auth - authentication settings common to all services\n#\n# This file is included from other service-specific PAM config files,\n# and should contain a list of the authentication modules that define\n# the central authentication scheme for use on the system\n# (e.g., /etc/shadow, LDAP, Kerberos, etc.).  The default is to use the\n# traditional Unix authentication mechanisms.\n#\n# As of pam 1.0.1-6, this file is managed by pam-auth-update by default.\n# To take advantage of this, it is recommended that you configure any\n# local modules either before or after the default block, and use\n# pam-auth-update to manage selection of other modules.  See\n# pam-auth-update(8) for details.\n\n# here are the per-package modules (the \"Primary\" block)\nauth	[success=1 default=ignore]	pam_unix.so nullok_secure\n# here's the fallback if no module succeeds\nauth	requisite			pam_deny.so\n# prime the stack with a positive return value if there isn't one already;\n# this avoids us returning an error just because nothing sets a success code\n# since the modules above will each just jump around\nauth	required			pam_permit.so\n# and here are more per-package modules (the \"Additional\" block)\nauth	optional			pam_cap.so \n# end of pam-auth-update config\nauth required pam_tally2.so deny=5 unlock_time=1800 onerr=fail audit even_deny_root_account silent" > /etc/pam.d/common-auth
-echo -e "#\n# /etc/pam.d/common-password - password-related modules common to all services\n#\n# This file is included from other service-specific PAM config files,\n# and should contain a list of modules that define the services to be\n# used to change user passwords.  The default is pam_unix.\n\n# Explanation of pam_unix options:\n#\n# The \"sha512\" option enables salted SHA512 passwords.  Without this option,\n# the default is Unix crypt.  Prior releases used the option \"md5\".\n#\n# The \"obscure\" option replaces the old \`OBSCURE_CHECKS_ENAB\' option in\n# login.defs.\n#\n# See the pam_unix manpage for other options.\n\n# As of pam 1.0.1-6, this file is managed by pam-auth-update by default.\n# To take advantage of this, it is recommended that you configure any\n# local modules either before or after the default block, and use\n# pam-auth-update to manage selection of other modules.  See\n# pam-auth-update(8) for details.\n\n# here are the per-package modules (the \"Primary\" block)\npassword	[success=1 default=ignore]	pam_unix.so obscure sha512\n# here's the fallback if no module succeeds\npassword	requisite			pam_deny.so\n# prime the stack with a positive return value if there isn't one already;\n# this avoids us returning an error just because nothing sets a success code\n# since the modules above will each just jump around\npassword	required			pam_permit.so\n# and here are more per-package modules (the \"Additional\" block)\npassword	optional	pam_gnome_keyring.so \n# end of pam-auth-update config" > /etc/pam.d/common-password
-#sed -i '1s/^/password requisite pam_cracklib.so try_first_pass retry=3 difok=4 minlen=16 lcredit=-1 ucredit=-1 dcredit=-1 ocredit=-1 maxrepeat=2 reject_username gecoscheck enforce_for_root\n/' /etc/pam.d/common-password
-echo "If password policies are not correctly configured, try this for /etc/pam.d/common-password:\npassword requisite pam_cracklib.so retry=3 minlen=8 difok=3 reject_username minclass=3 maxrepeat=2 dcredit=1 ucredit=1 lcredit=1 ocredit=1\npassword requisite pam_pwhistory.so use_authtok remember=24 enforce_for_root"
-echo "Password policies have been set with /etc/pam.d."
 
 ####################################CRONTAB####################################
 
@@ -930,10 +857,6 @@ apt-get autoremove -y -qq
 apt-get autoclean -y -qq
 apt-get clean -y -qq
 echo "All unused packages have been removed."
-
-clear
-echo "Check to verify that all update settings are correct."
-update-manager
 
 clear
 apt-get update
