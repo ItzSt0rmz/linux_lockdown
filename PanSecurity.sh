@@ -19,8 +19,6 @@ chmod 777 $HOME/Desktop/Script.log
 
 ####################################PASSWORD FILE####################################
 
-####################################PASSWORD FILE####################################
-
 touch $HOME/Desktop/Password.txt
 echo -e "The script contains a secure password that will be used for all accounts. Would you like to make a custom password instead? yes or no"
 read pwyn
