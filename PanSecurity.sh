@@ -66,6 +66,7 @@ echo usersAuto
 
 usersLength=${#users[@]}
 
+
 for (( i=0;i<$usersLength;i++))
 do
 	clear
@@ -77,23 +78,24 @@ do
 		userdel -r ${users[${i}]}
 		echo "${users[${i}]} has been deleted."
 	else
-		echo "Make ${users[${i}]} administrator? yes or no"
-		read yn2
-		if [ $yn2 == y ]
-		then
-			gpasswd -a ${users[${i}]} sudo
-			gpasswd -a ${users[${i}]} adm
-			gpasswd -a ${users[${i}]} lpadmin
-			gpasswd -a ${users[${i}]} sambashare
-			echo "${users[${i}]} has been made an administrator."
-		else
-			gpasswd -d ${users[${i}]} sudo
-			gpasswd -d ${users[${i}]} adm
-			gpasswd -d ${users[${i}]} lpadmin
-			gpasswd -d ${users[${i}]} sambashare
-			gpasswd -d ${users[${i}]} root
-			echo "${users[${i}]} has been made a standard user."
-		fi
+
+		# echo "Make ${users[${i}]} administrator? yes or no"
+		# read yn2
+		# if [ $yn2 == y ]
+		# then
+		# 	gpasswd -a ${users[${i}]} sudo
+		# 	gpasswd -a ${users[${i}]} adm
+		# 	gpasswd -a ${users[${i}]} lpadmin
+		# 	gpasswd -a ${users[${i}]} sambashare
+		# 	echo "${users[${i}]} has been made an administrator."
+		# else
+		# 	gpasswd -d ${users[${i}]} sudo
+		# 	gpasswd -d ${users[${i}]} adm
+		# 	gpasswd -d ${users[${i}]} lpadmin
+		# 	gpasswd -d ${users[${i}]} sambashare
+		# 	gpasswd -d ${users[${i}]} root
+		# 	echo "${users[${i}]} has been made a standard user."
+		# fi
 
 		if [ $pwyn == y ]
 		then
@@ -274,14 +276,6 @@ echo "Does this machine need FTP?"
 read ftpYN
 echo "Does this machine need SSH?"
 read sshYN
-echo "Does this machine need Telnet?"
-read telnetYN
-echo "Does this machine need Mail?"
-read mailYN
-echo "Does this machine need Printing?"
-read printYN
-echo "Does this machine need MySQL?"
-read dbYN
 echo "Will this machine be a Web Server?"
 read httpYN
 echo "Does this machine need DNS?"
@@ -395,76 +389,6 @@ else
 	echo Response not recognized.
 fi
 echo "SSH is complete."
-
-clear
-if [ $telnetYN == n ]
-then
-	ufw deny telnet
-	ufw deny rtelnet
-	ufw deny telnets
-	apt-get purge telnet -y -qq
-	apt-get purge telnetd -y -qq
-	apt-get purge inetutils-telnetd -y -qq
-	apt-get purge telnetd-ssl -y -qq
-	echo "Telnet port has been denied on the firewall and Telnet has been removed."
-elif [ $telnetYN == y ]
-then
-	ufw allow telnet
-	ufw allow rtelnet
-	ufw allow telnets
-	echo "Telnet port has been allowed on the firewall."
-else
-	echo Response not recognized.
-fi
-echo "Telnet is complete."
-
-
-
-clear
-if [ $mailYN == n ]
-then
-	ufw deny smtp
-	ufw deny pop2
-	ufw deny pop3
-	ufw deny imap2
-	ufw deny imaps
-	ufw deny pop3s
-	echo "smtp, pop2, pop3, imap2, imaps, and pop3s ports have been denied on the firewall."
-elif [ $mailYN == y ]
-then
-	ufw allow smtp
-	ufw allow pop2
-	ufw allow pop3
-	ufw allow imap2
-	ufw allow imaps
-	ufw allow pop3s
-	echo "smtp, pop2, pop3, imap2, imaps, and pop3s ports have been allowed on the firewall."
-else
-	echo Response not recognized.
-fi
-echo "Mail is complete."
-
-
-
-clear
-if [ $printYN == n ]
-then
-	ufw deny ipp
-	ufw deny printer
-	ufw deny cups
-	echo "ipp, printer, and cups ports have been denied on the firewall."
-elif [ $printYN == y ]
-then
-	ufw allow ipp
-	ufw allow printer
-	ufw allow cups
-	echo "ipp, printer, and cups ports have been allowed on the firewall."
-else
-	echo Response not recognized.
-fi
-echo "Printing is complete."
-
-
 
 clear
 if [ $dbYN == n ]
