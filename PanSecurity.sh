@@ -22,7 +22,8 @@ chmod 777 ~//Desktop/Script.log
 touch $HOME/Desktop/Password.txt
 echo -e "The script contains a secure password that will be used for all accounts. Would you like to make a custom password instead? yes or no"
 read pwyn
-if [ $pwyn == y ]; then
+if [ $pwyn == y ]
+then
 	echo "Password:"
 	read pw
 	echo "$pw" > $HOME/Desktop/Password.txt
