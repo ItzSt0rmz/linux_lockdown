@@ -28,13 +28,13 @@ if [ $pwyn == y ]
 then
 	echo "Password:"
 	read pw
-	echo "$pw" > ~/Desktop/Password.txt
+	echo "$pw" > $HOME/Desktop/Password.txt
 	echo "Password has been set as '$pw'."
 else
-	echo "Kraken1!" > ~/Desktop/Password.txt
+	echo "Kraken1!" > $HOME/Desktop/Password.txt
 	echo "Password has been set as 'Kraken1!'."
 fi
-chmod 777 ~/Desktop/Password.txt
+chmod 777 $HOME/Desktop/Password.txt
 echo "Password file is on desktop. Copy password from the file."
 
 ####################################CHECK IF ROOT####################################
@@ -61,7 +61,15 @@ cp /etc/passwd ~/Desktop/backups/
 echo "/etc/group and /etc/passwd files backed up."
 
 echo "Type all user account names, with a space in between."
-read -a users
+read users_input
+
+# Split the input manually into an array
+users=($users_input)
+
+# Print the array
+for user in "${users[@]}"; do
+    echo $user
+done
 
 usersAuto=eval getent passwd {$(awk '/^UID_MIN/ {print $2}' /etc/login.defs)..$(awk '/^UID_MAX/ {print $2}' /etc/login.defs)} | cut -d: -f1
 echo usersAuto
