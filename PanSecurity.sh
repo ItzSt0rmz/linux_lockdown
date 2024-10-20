@@ -13,9 +13,9 @@ sudo apt-get update
 
 ####################################LOG FILE####################################
 
-touch $HOME/Desktop/Script.log
-echo > $HOME/Desktop/Script.log
-chmod 777 $HOME/Desktop/Script.log
+touch ~/Desktop/Script.log
+echo > ~//Desktop/Script.log
+chmod 777 ~//Desktop/Script.log
 
 ####################################PASSWORD FILE####################################
 
@@ -71,8 +71,7 @@ read -a users
 usersLength=${#users[@]}
 
 for (( i=0;i<$usersLength;i++))
-		if [ $pwyn == y ]
-		then
+		if [ $pwyn == y ]; then
 			echo -e "$pw\n$pw" | passwd ${users[${i}]}
 			echo "${users[${i}]} has been given the password '$pw'."
 		else
