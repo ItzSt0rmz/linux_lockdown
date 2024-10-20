@@ -58,9 +58,7 @@ cp /etc/passwd ~/Desktop/backups/
 echo "/etc/group and /etc/passwd files backed up."
 
 echo "Type all user account names, with a space in between."
-read users_input
-
-users=$users_input
+read -a arr <<< "$users"
 
 for user in "${users[@]}"; do
     echo $user
