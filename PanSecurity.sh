@@ -22,6 +22,7 @@ chmod 777 ~//Desktop/Script.log
 touch $HOME/Desktop/Password.txt
 echo -e "The script contains a secure password that will be used for all accounts. Would you like to make a custom password instead? yes or no"
 read pwyn
+
 if [ $pwyn == y ]
 then
 	echo "Password:"
@@ -71,7 +72,7 @@ read -a users
 
 usersLength=${#users[@]}
 
-for (( i=0;i<$usersLength;i++))
+for (( i=0;i<$usersLength;i++ )); do
 		if [ $pwyn == y ]; then
 			echo -e "$pw\n$pw" | passwd ${users[${i}]}
 			echo "${users[${i}]} has been given the password '$pw'."
