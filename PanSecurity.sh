@@ -22,8 +22,7 @@ chmod 777 $HOME/Desktop/Script.log
 touch $HOME/Desktop/Password.txt
 echo -e "The script contains a secure password that will be used for all accounts. Would you like to make a custom password instead? yes or no"
 read pwyn
-if [ $pwyn == y ]
-then
+if [ $pwyn == y ]; then
 	echo "Password:"
 	read pw
 	echo "$pw" > $HOME/Desktop/Password.txt
@@ -61,10 +60,8 @@ echo "/etc/group and /etc/passwd files backed up."
 echo "Type all user account names, with a space in between."
 read users_input
 
-# Split the input manually into an array
-users=($users_input)
+users=$users_input
 
-# Print the array
 for user in "${users[@]}"; do
     echo $user
 done
