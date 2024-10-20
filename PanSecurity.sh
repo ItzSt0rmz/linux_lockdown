@@ -50,15 +50,15 @@ chmod 777 $HOME/Desktop/backups
 
 echo "Backups folder created on the Desktop."
 
-####################################PAM CONFIGURATION####################################
+# ####################################PAM CONFIGURATION####################################
 
-echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800" >> /etc/pam.d/common-auth
+# echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800" >> /etc/pam.d/common-auth
 
-####################################GUEST ACCOUNT####################################
+# ####################################GUEST ACCOUNT####################################
 
-echo "allow-guest=false" >> /etc/lightdm/users.conf
+# echo "allow-guest=false" >> /etc/lightdm/users.conf
 
-####################################USERS####################################
+# ####################################USERS####################################
 
 cp /etc/group $HOME/Desktop/backups/
 cp /etc/passwd $HOME/Desktop/backups/
