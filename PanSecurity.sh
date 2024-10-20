@@ -13,13 +13,15 @@ sudo apt-get update
 
 ####################################LOG FILE####################################
 
-touch ~/Desktop/Script.log
-echo > ~/Desktop/Script.log
-chmod 777 ~/Desktop/Script.log
+touch $HOME/Desktop/Script.log
+echo > $HOME/Desktop/Script.log
+chmod 777 $HOME/Desktop/Script.log
 
 ####################################PASSWORD FILE####################################
 
-touch ~/Desktop/Password.txt
+####################################PASSWORD FILE####################################
+
+touch $HOME/Desktop/Password.txt
 echo -e "The script contains a secure password that will be used for all accounts. Would you like to make a custom password instead? yes or no"
 read pwyn
 if [ $pwyn == y ]
