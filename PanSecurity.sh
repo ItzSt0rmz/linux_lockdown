@@ -54,7 +54,8 @@ echo "Backups folder created on the Desktop."
 
 ####################################PAM CONFIGURATION####################################
 
-echo "auth required pam_tally2.so deny=5 onerr=fail unlock_time=1800" >> /etc/pam.d/common-auth
+echo "use checklist to go and congifure PAM files"
+read ok
 
 ####################################GUEST ACCOUNT####################################
 
@@ -152,8 +153,6 @@ then
 else
 	echo "UID 0 is correctly set to root."
 fi
-
-sed -i '1s/.*/root:x:0:0:root:/root:/sbin/nologin/' /etc/passwd #not sure about syntax on this
 
 ####################################FILE PERMISSIONS####################################
 
@@ -565,10 +564,6 @@ echo 'exit 0' >> /etc/rc.local
 echo "Any startup scripts have been removed."
 
 clear
-find /bin/ -name "*.sh" -type f -delete
-echo "Scripts in bin have been removed."
-
-clear
 find / -name "*.php" -type f >> $HOME/Desktop/Script.log
 echo "All PHP files have been listed above. ('/var/cache/dictionaries-common/sqspell.php' is a system PHP file)"
 
@@ -770,8 +765,6 @@ echo "Password policies have been set with /etc/login.defs."
 
 clear
 apt-get install libpam-cracklib -y -qq
-cp /etc/pam.d/common-auth $HOME/Desktop/backups/
-cp /etc/pam.d/common-password $HOME/Desktop/backups/
 
 ####################################CRONTAB####################################
 
